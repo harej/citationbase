@@ -57,7 +57,7 @@ def bundle_maker(biglist, size):
 
     return [biglist[x:x+size] for x in range(0, len(biglist), size)]
 
-def go(step, proc_count, manifest_file, url_template, step):
+def go(step, proc_count, manifest_file, url_template):
     # https://archive.org/download/enwiki-20170901/enwiki-20170901-pages-meta-history6.xml-p623736p638424.bz2
 
     manifest = []
