@@ -34,7 +34,7 @@ class ProcLauncher(threading.Thread):
         #    print(err.decode('utf-8'))
 
     def run(self):
-        rate_limit = str(int(128 / proc_count))
+        rate_limit = str(int(128 / self.proc_count))
         for filename in self.package:
             refs_filename = 'refs-' + filename + '.tsv'
             if self.step == 'download':
