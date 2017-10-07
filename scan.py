@@ -16,6 +16,7 @@ TSV columns:
 def scan(file):
     session = Session()
     entries = []
+    print('Loading ' + file)
     with open(file) as f:
         reader = csv.reader(f, delimiter='\t')
         for line in reader:
@@ -45,7 +46,8 @@ def scan(file):
                                 continue
                             param_name_string = name_and_value[0].strip()
                             param_value = name_and_value[1].strip()
-                            if param_value == '' or param_name_string == '':
+                            if param_value == '' or param_name_string == '' \
+                            or len(param_name_string) > 255:
                                 continue
 
                             refparamname = session.query(RefParamName)\
@@ -78,15 +80,12 @@ def scan(file):
                 refstring_id=refstring.id)
             entries.append(refrevision)
 
-            try:
-                print(line[4])
-            except:
-                print("Something that can't be printed right.")
-
             if len(entries) >= 2000:
                 session.add_all(entries)
                 session.commit()
                 entries = []
+
+    print('Done loading ' + file)
 
 if __name__ == '__main__':
     file = sys.argv[1]
